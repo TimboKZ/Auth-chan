@@ -1,0 +1,28 @@
+{
+  "name": "auth-chan",
+  "version": "2.0.0",
+  "description": "Virtual assistant on pure JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimboKZ/Auth-chan.git"
+  },
+  "keywords": [
+    "auth-chan",
+    "js",
+    "assistant",
+    "forms"
+  ],
+  "author": "Timur Kuzhagaliyev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimboKZ/Auth-chan/issues"
+  },
+  "homepage": "https://github.com/TimboKZ/Auth-chan#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
