@@ -27,6 +27,12 @@ gulp.task('ts', function () {
         }))
 });
 
+var mocha = require('gulp-mocha');
+gulp.task('test', function () {
+    return gulp.src(['test/**/*.js'], {read: false})
+        .pipe(mocha({reporter: 'spec'}))
+});
+
 var browserSync = require('browser-sync').create();
 gulp.task('browserSync', function () {
     browserSync.init({
@@ -39,5 +45,6 @@ gulp.task('browserSync', function () {
 gulp.task('default', ['browserSync', 'sass', 'ts'], function () {
     gulp.watch('src/sass/auth-chan.sass', ['sass']);
     gulp.watch('src/ts/auth-chan.ts', ['ts']);
+    //gulp.watch('assets/js/*.js', ['test']);
     gulp.watch('index.html', browserSync.reload);
 });
