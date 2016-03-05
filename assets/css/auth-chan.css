@@ -1,2 +1,26 @@
 /*! Auth-chan stylesheet v2.0 (https://github.com/TimboKZ/Auth-chan)
  * Copyright (c) 2016 Timur Kuzhagaliyev (TimboKZ) */
+.auth-chan {
+  /* Helper classes */
+  /* Overlay and modal */
+}
+
+.auth-chan-clickable {
+  cursor: pointer;
+}
+
+.auth-chan-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-transition: opacity 0.6s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 9998;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  left: 0;
+  top: 0;
+}
+
+.auth-chan-overlay.auth-chan-hidden {
+  opacity: 0;
+}
