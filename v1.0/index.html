@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Auth-chan</title>
+    <link rel="stylesheet" href="Auth-chan/Auth-chan.css"/>
+</head>
+<body>
+
+<h1>Auth-chan <span>v0.1</span></h1>
+
+<p>Auth-chan is a virtual assistant meant to help people out when it comes to filling out various forms, guiding them
+    through some process or just explaining how something works.</p>
+
+<h2>Text-only demo</h2>
+
+<p>Below is a basic demo with Auth-chan talking about herself. Note that Auth-chan remembers the progress when you close
+    and reopen the modal window.</p>
+
+<a href="#" id="demo-1" class="button">
+    <div class="inside">Click to summon Auth-chan</div>
+</a>
+
+<h2>Input demo</h2>
+
+<p>In this demo Auth-chan will ask you a couple of questions and then output your answer.</p>
+
+<a href="#" id="demo-2" class="button">
+    <div class="inside">Click to summon Auth-chan</div>
+</a>
+
+<script src="Auth-chan/Auth-chan.js"></script>
+<script>
+
+    // Demo #1
+    var steps1 = [];
+    steps1.push({
+        type: 'text',
+        subtype: 'short',
+        size: 'medium',
+        authchan: false,
+        text: 'I\'m here to help your users to fill out forms or help them understand how something works.'
+    });
+    steps1.push({
+        type: 'text',
+        subtype: 'medium',
+        size: 'medium',
+        authchan: 'shy',
+        text: 'I\'m still being developed so sometimes I might not live up to your expectations... Please don\'t get mad if I do!'
+    });
+    steps1.push({
+        type: 'text',
+        subtype: 'short',
+        size: 'small',
+        authchan: 'ok',
+        text: 'Thanks for listening! You can now close this popup.'
+    });
+
+    var Authchan1 = new window.Authchan({
+        skipFarewell: true,
+        submitOnClose: false
+    }, steps1);
+
+    document.getElementById('demo-1').addEventListener('click', function (event) {
+        event.preventDefault();
+        Authchan1.open();
+    });
+
+    // Demo #2
+    var steps2 = [];
+    steps2.push({
+        type: 'text',
+        subtype: 'short',
+        size: 'small',
+        authchan: 'kawaii',
+        text: 'I\'m going to ask you a couple of questions.'
+    });
+    steps2.push({
+        type: 'input',
+        subtype: 'text',
+        name: 'name',
+        placeholder: 'Type here',
+        size: 'small',
+        authchan: false,
+        text: 'Please tell me your name:'
+    });
+    steps2.push({
+        type: 'textarea',
+        subtype: 'medium',
+        name: 'opinion',
+        placeholder: 'Type here',
+        size: 'medium',
+        authchan: 'shy',
+        text: 'What is your opinion of Auth-chan?'
+    });
+
+    var Authchan2 = new Authchan({
+        skipIntroduction: true,
+        submitCallback: function (data) {
+            var fragment = document.createDocumentFragment();
+            var h2 = document.createElement('h2');
+            h2.innerHTML = 'Results';
+            fragment.appendChild(h2);
+            var p = document.createElement('p');
+            p.innerHTML = 'Auth-chan says your name is <b>' + data.name + '</b> and your opinion of her is as follows:';
+            fragment.appendChild(p);
+            var blockquote = document.createElement('blockquote');
+            blockquote.innerText = data.opinion;
+            fragment.appendChild(blockquote);
+
+            var button = document.getElementById('demo-2');
+            button.parentNode.insertBefore(fragment, button);
+        },
+        closeButtonText: 'View Answers'
+    }, steps2);
+
+    document.getElementById('demo-2').addEventListener('click', function (event) {
+        event.preventDefault();
+        Authchan2.open();
+    });
+
+</script>
+
+
+<style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 auto;
+        padding: 20px;
+        width: 820px;
+    }
+
+    h1 {
+        padding: 20px;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 20px;
+        padding: 20px;
+        margin: 0;
+    }
+
+    p {
+        line-height: 30px;
+        font-size: 18px;
+        padding: 20px;
+        margin: 0;
+    }
+
+    blockquote {
+        border-left: solid 5px #bdbdbd;
+        margin: 20px 20px 40px 20px;
+        background-color: #e0e0e0;
+        padding: 20px;
+    }
+
+    .button {
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+
+        text-decoration: none;
+        border-radius: 5px;
+        position: relative;
+        overflow: hidden;
+        display: block;
+        margin: 20px;
+        height: 65px;
+        width: 350px;
+    }
+
+    .button .inside {
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        border-bottom: solid 5px #1075d1;
+        background-color: #06a2e1;
+        border-radius: 5px;
+        text-align: center;
+        position: absolute;
+        line-height: 60px;
+        height: 60px;
+        width: 350px;
+        color: white;
+        left: 0;
+        top: 0;
+    }
+
+    .button:hover .inside {
+        top: 2px;
+    }
+
+    .button:active .inside {
+        top: 4px;
+    }
+
+</style>
+
+</body>
+</html>

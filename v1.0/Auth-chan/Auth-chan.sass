@@ -1,0 +1,395 @@
+/*
+ Auth-chan v0.1 (http://timbo.kz/Auth-chan/)
+ Copyright (c) 2015 Timur Kuzhagaliyev (TimboKZ)
+ */
+
+
+// Variables
+$font-path: 'font/'
+$images-path: 'images/'
+
+// The font
+@font-face
+  font-family: 'Komika Text Regular'
+  src: url('#{$font-path}komtxt__-webfont.eot')
+  src: url('#{$font-path}komtxt__-webfont.eot?#iefix') format('embedded-opentype'), url('#{$font-path}komtxt__-webfont.woff2') format('woff2'), url('#{$font-path}komtxt__-webfont.woff') format('woff'), url('#{$font-path}komtxt__-webfont.ttf') format('truetype'), url('#{$font-path}komtxt__-webfont.svg#komika_textregular') format('svg')
+  font-weight: normal
+  font-style: normal
+
+// Colour palette
+$auth-chan-colours: ('primary': #06a2e1, 'secondary': #1075d1, 'primary-disabled': #c4c4c4, 'secondary-disabled': #bdbdbd, 'foreground': #191919, 'background': #e9e9e9)
+@function auth-chan-colour($key)
+  @return map-get($auth-chan-colours, $key)
+
+// Mixins
+@mixin box-sizing($arguments...)
+  -webkit-box-sizing: $arguments
+  -moz-box-sizing: $arguments
+  box-sizing: $arguments
+
+@mixin transition($arguments...)
+  -webkit-transition: $arguments
+  -moz-transition: $arguments
+  -o-transition: $arguments
+  transition: $arguments
+
+@mixin box-shadow($arguments...)
+  -webkit-box-shadow: $arguments
+  -moz-box-shadow: $arguments
+  box-shadow: $arguments
+
+@mixin transform($arguments...)
+  -webkit-transform: $arguments
+  -moz-transform: $arguments
+  -ms-transform: $arguments
+  -o-transform: $arguments
+  transform: $arguments
+
+@mixin transform-origin($arguments...)
+  -webkit-transform-origin: $arguments
+  -moz-transform-origin: $arguments
+  -ms-transform-origin: $arguments
+  -o-transform-origin: $arguments
+  animation: $arguments
+
+@mixin keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+  @-moz-keyframes #{$animation-name}
+    @content
+  @-ms-keyframes #{$animation-name}
+    @content
+  @-o-keyframes #{$animation-name}
+    @content
+  @keyframes #{$animation-name}
+    @content
+
+@mixin animation($arguments...)
+  -webkit-animation: $arguments
+  -moz-animation: $arguments
+  -ms-animation: $arguments
+  -o-animation: $arguments
+  animation: $arguments
+
+// Style
+body
+  margin: 0
+
+.auth-chan
+
+  &-auth-chan
+    @include transition(all 0.6s ease-in-out)
+    position: absolute
+    overflow: hidden
+    height: 350px
+    width: 409px
+    left: -30px
+    z-index: 1
+    bottom: 0
+    &.auth-chan-hidden
+      bottom: -409px
+
+    *
+      background-repeat: no-repeat
+      background-position: center
+      background-size: contain
+      position: absolute
+      height: 100%
+      width: 100%
+
+    &-body
+      background-image: url('#{$images-path}body.png')
+      z-index: 1
+
+    &-extra
+      z-index: 2
+
+      &.auth-chan-talking
+        background-image: url('#{$images-path}extra-talking.png')
+
+      &.auth-chan-blushing
+        background-image: url('#{$images-path}extra-blushing.png')
+
+    &-eyebrows
+      background-image: url('#{$images-path}eyebrows.png')
+      z-index: 3
+
+      &.auth-chan-kawaii
+        background-image: url('#{$images-path}eyebrows-kawaii.png')
+
+      &.auth-chan-angry
+        background-image: url('#{$images-path}eyebrows-angry.png')
+
+    &-eyes
+      background-image: url('#{$images-path}eyes.png')
+      z-index: 3
+
+      &.auth-chan-kawaii
+        background-image: url('#{$images-path}eyes-kawaii.png')
+
+      &.auth-chan-shy
+        background-image: url('#{$images-path}eyes-shy.png')
+
+      &.auth-chan-closed
+        background-image: url('#{$images-path}eyes-closed.png') !important
+
+    &-mouth
+      background-image: url('#{$images-path}mouth.png')
+      z-index: 3
+
+      &.auth-chan-kawaii
+        background-image: url('#{$images-path}mouth-kawaii.png')
+
+      &.auth-chan-angry
+        background-image: url('#{$images-path}mouth-angry.png')
+
+      &.auth-chan-talking
+        background-image: url('#{$images-path}mouth-talking.png') !important
+
+    &-hair
+      background-image: url('#{$images-path}hair.png')
+      z-index: 4
+
+    &-hands
+      @include transition(all 0.6s ease-in-out)
+      @include transform-origin(50% 120%)
+      height: 50% !important
+      width: 42% !important
+      z-index: 4
+      left: 10%
+      top: 52%
+
+      &.auth-chan-animate
+        @include animation(auth-chan-waving 1s infinite)
+        @include keyframes(auth-chan-waving)
+          0%
+            @include transform(rotateZ(15deg))
+            left: 10%
+          50%
+            @include transform(rotateZ(-15deg))
+            left: 8%
+          100%
+            @include transform(rotateZ(15deg))
+            left: 10%
+
+      &.auth-chan-waving
+        background-image: url('#{$images-path}hands-waving.png')
+        @include transform(rotateZ(15deg))
+
+      &.auth-chan-ok
+        background-image: url('#{$images-path}hands-ok.png')
+
+      &.auth-chan-hidden
+        top: 100%
+
+  &-speech-bubble
+    @include transition(all 0.6s ease-in-out)
+    @include transform(rotateX(0deg))
+    position: absolute
+    height: 100%
+    width: 100%
+    opacity: 1
+    z-index: 2
+    left: 0
+    top: 0
+
+    &.auth-chan-faded
+      opacity: 0
+
+    &.auth-chan-hidden
+      @include transform(rotateX(90deg))
+
+    &-content
+      position: absolute
+      height: 100%
+      width: 520px
+      right: 0
+      top: 0
+
+      &-text
+        @include transform(translateY(-50%))
+        @include box-sizing(border-box)
+        text-align: center
+        position: absolute
+        padding: 0 40px
+        width: 100%
+        z-index: 2
+        right: 0
+        top: 48%
+
+        &.auth-chan-short
+          font-size: 26px
+
+        &.auth-chan-medium
+          font-size: 22px
+
+        &.auth-chan-long
+          background-image: url('#{$images-path}speech-bubble-big.png')
+
+      &-input
+        @include transform(translateY(-50%))
+        @include box-sizing(border-box)
+        text-align: center
+        position: absolute
+        font-size: 26px
+        padding: 0 40px
+        width: 540px
+        z-index: 2
+        right: 0
+        top: 47%
+
+        input
+          margin: 10px auto 0 auto
+          text-align: center
+          font-size: 22px
+          display: block
+          height: 15%
+          width: 50%
+
+      &-textarea
+        @include transform(translateY(-50%))
+        @include box-sizing(border-box)
+        text-align: center
+        position: absolute
+        font-size: 26px
+        padding: 0 40px
+        width: 540px
+        z-index: 2
+        right: 0
+        top: 47%
+
+        textarea
+          margin: 10px auto 0 auto
+          font-size: 22px
+          max-width: 50%
+          min-width: 50%
+          display: block
+
+          height: 50%
+          width: 80%
+
+    &-bubble
+      background-image: url('#{$images-path}speech-bubble-small.png')
+      background-repeat: no-repeat
+      background-position: center
+      background-size: contain
+      position: absolute
+      height: 100%
+      width: 100%
+      z-index: 1
+
+      &.auth-chan-small
+        background-image: url('#{$images-path}speech-bubble-small.png')
+
+      &.auth-chan-medium
+        background-image: url('#{$images-path}speech-bubble-medium.png')
+
+      &.auth-chan-big
+        background-image: url('#{$images-path}speech-bubble-big.png')
+
+  &-overlay, &-modal
+    position: fixed
+
+  &-overlay
+    @include transition(all 0.6s ease-in-out)
+    background-color: rgba(0, 0, 0, 0.6)
+    z-index: 9998
+    height: 100%
+    width: 100%
+    opacity: 1
+    left: 0
+    top: 0
+    &.auth-chan-hidden
+      opacity: 0
+
+  &-modal
+    @include box-shadow(rgba(0, 0, 0, 0.5) 0 0 15px)
+    @include transition(all 0.6s ease-in-out)
+    @include transform(rotateX(0deg))
+    margin: -200px 0 0 -400px
+    background-color: white
+    border-radius: 3px
+    overflow: hidden
+    position: fixed
+    z-index: 9999
+    height: 400px
+    width: 800px
+    left: 50%
+    top: 50%
+    &.auth-chan-hidden
+      @include transform(rotateX(90deg))
+
+  &-close
+    border-bottom: solid 2px auth-chan-colour('secondary')
+    background-color: auth-chan-colour('primary')
+    @include transition(all 0.6s ease-in-out)
+    border-radius: 5px
+    position: absolute
+    cursor: pointer
+    display: block
+    height: 30px
+    width: 30px
+    right: 10px
+    z-index: 3
+    top: 10px
+
+    &.auth-chan-hidden
+      top: -40px
+
+    &:before
+      font-family: "Trebuchet MS", Helvetica, sans-serif
+      text-align: center
+      position: absolute
+      line-height: 30px
+      font-size: 20px
+      content: 'X'
+      height: 100%
+      color: white
+      width: 100%
+
+  &-next, &-previous
+    border-bottom: solid 2px auth-chan-colour('secondary')
+    font-family: "Trebuchet MS", Helvetica, sans-serif
+    background-color: auth-chan-colour('primary')
+    @include transition(all 0.6s ease-in-out)
+    text-decoration: none
+    border-radius: 5px
+    text-align: center
+    position: absolute
+    line-height: 30px
+    cursor: pointer
+    display: block
+    height: 30px
+    bottom: 10px
+    color: white
+    width: 200px
+    z-index: 3
+
+    &.auth-chan-hidden
+      bottom: -40px
+
+    &.auth-chan-disabled
+      border-bottom: solid 2px auth-chan-colour('secondary-disabled')
+      background-color: auth-chan-colour('primary-disabled')
+      cursor: not-allowed
+
+  &-next
+    right: 35px
+
+  &-previous
+    right: 255px
+
+  &-clickable
+    cursor: pointer
+
+  &-font-custom
+    font-family: 'Komika Text Regular', Helvetica, sans-serif !important
+
+    input, textarea
+      font-family: 'Komika Text Regular', Helvetica, sans-serif !important
+
+  &-font-websafe
+    font-family: 'Trebuchet MS', Helvetica, sans-serif !important
+
+    input, textarea
+      font-family: 'Trebuchet MS', Helvetica, sans-serif !important
