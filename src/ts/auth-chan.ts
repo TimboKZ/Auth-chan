@@ -35,34 +35,81 @@ module AuthchanModule {
 
     export class Authchan {
 
-        private body : ACBody;
-        private controls : ACControls;
-        private data : ACDataManager;
-        private modal : ACModal;
-        private slides : ACSlideManager;
+        private body:ACBody;
+        private controls:ACControls;
+        private data:ACDataManager;
+        private modal:ACModal;
+        private slides:ACSlideManager;
 
-        constructor(parametrs : Object) {
+        private settings:Object;
+
+        constructor(config:Object = null, slides:Object = null) {
+
+            var defaults = {
+
+                // Closing
+                allowClose: true,
+                closeOnOverlayClick: true,
+                discardDataOnClose: false,
+                closeOnESC: true,
+
+                // Submitting
+                submitOnClose: true,
+                submitIncomplete: true,
+
+                // Callbacks
+                showCallback: null,
+                shownCallback: null,
+                closeCallback: null, // (isComplete)
+                closedCallback: null, // (isComplete)
+                submitCallback: null, // (data)
+
+                // Text
+                nextButtonText: 'Next Step',
+                prevButtonText: 'Previous Step',
+                closeButtonText: 'Close',
+
+                // Appearance
+                useOverlay: true,
+                useCustomFont: true,
+                skin: null,
+            };
+
+            // Reading settings
+            this.settings = ACUtil.extendObject(defaults, config);
 
         }
 
-        get body(): ACBody {
+        public body():ACBody {
             return this.body;
         }
 
-        get controls(): ACControls {
+        public controls():ACControls {
             return this.controls;
         }
 
-        get data(): ACDataManager {
+        public data():ACDataManager {
             return this.data;
         }
 
-        get modal(): ACModal {
+        public modal():ACModal {
             return this.modal;
         }
 
-        get slides(): ACSlideManager {
+        public slides():ACSlideManager {
             return this.slides;
+        }
+    }
+
+    class ACUtil {
+        public static extendObject(source:Object, properties:Object) {
+            var property;
+            for (property in properties) {
+                if (properties.hasOwnProperty(property)) {
+                    source[property] = properties[property];
+                }
+            }
+            return source;
         }
     }
 

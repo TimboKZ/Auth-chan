@@ -40,46 +40,74 @@ var AuthchanModule;
         return ACSlide;
     }());
     var Authchan = (function () {
-        function Authchan(parametrs) {
+        function Authchan(config, slides) {
+            if (config === void 0) {
+                config = null;
+            }
+            if (slides === void 0) {
+                slides = null;
+            }
+            var defaults = {
+                // Closing
+                allowClose: true,
+                closeOnOverlayClick: true,
+                discardDataOnClose: false,
+                closeOnESC: true,
+                // Submitting
+                submitOnClose: true,
+                submitIncomplete: true,
+                // Callbacks
+                showCallback: null,
+                shownCallback: null,
+                closeCallback: null,
+                closedCallback: null,
+                submitCallback: null,
+                // Text
+                nextButtonText: 'Next Step',
+                prevButtonText: 'Previous Step',
+                closeButtonText: 'Close',
+                // Appearance
+                useOverlay: true,
+                useCustomFont: true,
+                skin: null
+            };
+            // Reading settings
+            this.settings = ACUtil.extendObject(defaults, config);
         }
-        Object.defineProperty(Authchan.prototype, "body", {
-            get: function () {
-                return this.body;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Authchan.prototype, "controls", {
-            get: function () {
-                return this.controls;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Authchan.prototype, "data", {
-            get: function () {
-                return this.data;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Authchan.prototype, "modal", {
-            get: function () {
-                return this.modal;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Authchan.prototype, "slides", {
-            get: function () {
-                return this.slides;
-            },
-            enumerable: true,
-            configurable: true
-        });
+
+        Authchan.prototype.body = function () {
+            return this.body;
+        };
+        Authchan.prototype.controls = function () {
+            return this.controls;
+        };
+        Authchan.prototype.data = function () {
+            return this.data;
+        };
+        Authchan.prototype.modal = function () {
+            return this.modal;
+        };
+        Authchan.prototype.slides = function () {
+            return this.slides;
+        };
         return Authchan;
     }());
     AuthchanModule.Authchan = Authchan;
+    var ACUtil = (function () {
+        function ACUtil() {
+        }
+
+        ACUtil.extendObject = function (source, properties) {
+            var property;
+            for (property in properties) {
+                if (properties.hasOwnProperty(property)) {
+                    source[property] = properties[property];
+                }
+            }
+            return source;
+        };
+        return ACUtil;
+    }());
 })(AuthchanModule || (AuthchanModule = {}));
 var Authchan = AuthchanModule.Authchan;
 /**
