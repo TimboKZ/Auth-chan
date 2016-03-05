@@ -1,17 +1,2 @@
 /* Auth-chan stylesheet v2.0 (https://github.com/TimboKZ/Auth-chan)
  * Copyright (c) 2016 Timur Kuzhagaliyev (TimboKZ) */
-body {
-    box-shadow: 0px 0px 4px 0px #ffffff;
-    -webkit-transform: rotate(7.5deg);
-    transform: rotate(7.5deg);
-    -webkit-perspective: 300px;
-    perspective: 300px;
-    box-sizing: border-box;
-    -moz-tab-size: 2;
-    -o-tab-size: 2;
-    tab-size: 2;
-    -webkit-transition: all 200ms linear;
-    transition: all 200ms linear;
-    color: red;
-    background-color: blue;
-}
